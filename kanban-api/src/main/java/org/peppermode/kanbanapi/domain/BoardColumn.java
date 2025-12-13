@@ -12,8 +12,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 @Entity
-@Table(name = "boards")
-public class Board {
+@Table(name = "columns")
+public class BoardColumn {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,12 +22,18 @@ public class Board {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<BoardColumn> boardColumns = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "board_id", nullable = false)
+    private Board board;
 
-    public Board(String name) {
+    @OneToMany(mappedBy = "boardColumn",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<Task> tasks = new ArrayList<>();
+
+
+    public BoardColumn(String name, Board board) {
         this.name = name;
+        this.board = board;
     }
 }
-
-
