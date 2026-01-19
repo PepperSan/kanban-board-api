@@ -2,6 +2,7 @@ package org.peppermode.kanbanapi.service;
 
 import lombok.RequiredArgsConstructor;
 import org.peppermode.kanbanapi.domain.Board;
+import org.peppermode.kanbanapi.dto.BoardDto;
 import org.peppermode.kanbanapi.repo.BoardRepository;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,13 @@ public class BoardService {
 
     public List<Board> getAll() {
         return boardRepository.findAll();
+    }
+
+    public List<BoardDto> getAllBoards() {
+        return boardRepository.findAll()
+                .stream()
+                .map(b -> new BoardDto(b.getId(), b.getName()))
+                .toList();
     }
 }
 

@@ -2,6 +2,7 @@ package org.peppermode.kanbanapi.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.peppermode.kanbanapi.domain.Board;
+import org.peppermode.kanbanapi.dto.BoardDto;
 import org.peppermode.kanbanapi.service.BoardService;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,8 +21,8 @@ public class BoardController {
     }
 
     @GetMapping
-    public List<Board> getAll() {
-        return boardService.getAll();
+    public List<BoardDto> getBoards() {
+        return boardService.getAllBoards();
     }
 }
 
